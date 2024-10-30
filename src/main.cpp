@@ -9,17 +9,17 @@
 ez::Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is used as the sensor
-  {13, 15, 17}
+  {-4, -12, -13}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is used as the sensor
-  ,{1, 3, 9}
+  ,{14, 15, 16}
 
   // IMU Port
-  ,1
-
+  ,16
+  
   // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
-  ,3.0
+  ,3.25
 
   // Cartridge RPM
   ,200
@@ -28,7 +28,7 @@ ez::Drive chassis (
   // eg. if your drive is 84:36 where the 36t is powered, your RATIO would be 84/36 which is 2.333
   // eg. if your drive is 60:36 where the 36t is powered, your RATIO would be 60/36 which is 0.6
   // eg. if your drive is 36:60 where the 60t is powered, your RATIO would be 36/60 which is 0.6
-  ,1.667
+  ,1
 );
 
 /**
@@ -161,11 +161,60 @@ void opcontrol() {
     //     chassis.pid_tuner_toggle();
         
     //   // Trigger the selected autonomous routine
-    //   if (master.get_digital_new_press(DIGITAL_B)) 
-    //     autonomous();
+    /*
+       if (master.get_digital_new_press(DIGITAL_B)) {
+          autonomous();
+       }
+       */
 
     //   chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
     // } 
+
+    if(master.get_digital(DIGITAL_L1)) {
+      motorPair1.move(127);
+      motorPair2.move(127);
+    } else if(master.get_digital(DIGITAL_L2)) {
+      motorPair1.move(-127);
+      motorPair2.move(-127);
+    } else {
+      motorPair1.move(0);
+      motorPair2.move(0);
+    }
+
+    if(master.get_digital(DIGITAL_R1)) {
+      motorSolo.move(127);
+      motorSolo2.move(-127);
+    } else if(master.get_digital(DIGITAL_R2)) {
+      motorSolo.move(-127);
+      motorSolo2.move(127);
+    } else {
+      motorSolo.move(0);
+    }
+
+    if(master.get_digital_new_press(DIGITAL_X)) {
+      if(pneumatic2.get_value() == false) {
+        pros::Task task{[=] {
+          pneumatic2.set_value(true);
+          pros::delay(500);
+          pneumatic1.set_value(true);
+        }};
+      } else {
+        pros::Task task{[=] {
+          pneumatic1.set_value(false);
+          pros::delay(500);
+          pneumatic2.set_value(false);
+        }};
+      }
+    }
+
+
+
+    /*
+    FILE* file = fopen("/usd/garbage.txt", "r");
+    char buf[50];
+    fread(buf, 1, 50, file);
+    master.set_text(0, 1, buf);
+    */
 
     //chassis.opcontrol_tank(); // Tank control
     chassis.opcontrol_arcade_standard(ez::SPLIT); // Standard split arcade

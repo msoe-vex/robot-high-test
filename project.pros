@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "big-robot",
+    "project_name": "test-robot",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -333,7 +333,7 @@
       }
     },
     "upload_options": {
-      "description": "big robot code",
+      "description": "code",
       "slot": 1
     }
   }
