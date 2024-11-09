@@ -62,6 +62,8 @@ void initialize() {
   chassis.initialize();
   ez::as::initialize();
   master.rumble(".");
+  pneumatic1.set_value(false);
+  pneumatic2.set_value(false);
 
   // pros::delay(50);
   // pros::Task imuValues(getIMU);
@@ -171,27 +173,24 @@ void opcontrol() {
     // } 
 
     if(master.get_digital(DIGITAL_L1)) {
-      motorPair1.move(127);
-      motorPair2.move(127);
+      motorIntake1.move(-127);
+      motorIntake2.move(127);
+      motorTransfer1.move(127);
+      motorTransfer2.move(127);
     } else if(master.get_digital(DIGITAL_L2)) {
-      motorPair1.move(-127);
-      motorPair2.move(-127);
-    } else {
-      motorPair1.move(0);
-      motorPair2.move(0);
-    }
-
-    if(master.get_digital(DIGITAL_R1)) {
-      motorSolo.move(127);
-      motorSolo2.move(-127);
+      motorTransfer1.move(-127);
+      motorTransfer2.move(-127);
     } else if(master.get_digital(DIGITAL_R2)) {
-      motorSolo.move(-127);
-      motorSolo2.move(127);
+      motorIntake1.move(127);
+      motorIntake2.move(-127);
     } else {
-      motorSolo.move(0);
+      motorIntake1.move(0);
+      motorIntake2.move(0);
+      motorTransfer1.move(0);
+      motorTransfer2.move(0);
     }
 
-    if(master.get_digital_new_press(DIGITAL_X)) {
+    if(master.get_digital_new_press(DIGITAL_R1)) {
       if(pneumatic2.get_value() == false) {
         pros::Task task{[=] {
           pneumatic2.set_value(true);
