@@ -1,4 +1,6 @@
 #include "main.h" 
+#include "pros/adi.h"
+#include "pros/adi.hpp"
 //Non Drive Motor Set up here (Naming each non-drive motor and declaring their port number).
 //Pneumatic Set up here as well.
 //Remember to define each motor in globals.hpp as well, otherwise code wont work.
@@ -13,6 +15,7 @@ pros::Motor MotorName(1);
 //pros::ADIPort PneumaticName('a', pros::E_ADI_DIGITAL_OUT);
 pros::ADIPort pneumatic1('a', pros::E_ADI_DIGITAL_OUT);
 pros::ADIPort pneumatic2('b', pros::E_ADI_DIGITAL_OUT);
+pros::ADIPort climb('c', pros::E_ADI_DIGITAL_OUT);
 
 pros::Motor motorTransfer1(17);
 pros::Motor motorTransfer2(18);

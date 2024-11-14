@@ -1,4 +1,7 @@
 #include "main.h"
+#include "pros/adi.hpp"
+#include "encthing.cpp"
+#include "pros/misc.h"
 
 /////
 // For installation, upgrading, documentations and tutorials, check out our website!
@@ -148,6 +151,9 @@ void opcontrol() {
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
   master.clear_line(0);
+  pros::ADIEncoder lol('C', 'd', false);
+  OdomThing odom('A', 'B', false);
+  //pros::ADIEncoder* enc = &odom;
 
   while (true) {
     // (0,0, "imu:%.2f",chassis.drive_imu_get());
@@ -192,6 +198,12 @@ void opcontrol() {
       motorHood.move(0);
     }
 
+    if(master.get_digital_new_press(DIGITAL_X)) {
+      pros::Task task([=] {
+        climb.set_value(climb.get_value());
+      });
+    }
+
     if(master.get_digital_new_press(DIGITAL_R1)) {
       if(pneumatic2.get_value() == false) {
         pros::Task task{[=] {
@@ -207,8 +219,12 @@ void opcontrol() {
         }};
       }
     }
+    
+    //std::cout << lol.get_value() << std::endl;
+    //OdomThing odom('A', 'B', false);
+    //pros::ADIEncoder* enc = &odom;
 
-
+    //std::cout << enc->get_value() << std::endl;
 
     /*
     FILE* file = fopen("/usd/garbage.txt", "r");
