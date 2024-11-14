@@ -17,4 +17,5 @@ pros::ADIPort pneumatic2('b', pros::E_ADI_DIGITAL_OUT);
 pros::Motor motorTransfer1(17);
 pros::Motor motorTransfer2(18);
 pros::Motor motorIntake1(19);
-pros::Motor motorIntake2(20);
+//pros::Motor motorIntake2(20);
+pros::Motor motorHood(20);

@@ -174,20 +174,22 @@ void opcontrol() {
 
     if(master.get_digital(DIGITAL_L1)) {
       motorIntake1.move(-127);
-      motorIntake2.move(127);
+      //motorIntake2.move(127);
       motorTransfer1.move(127);
       motorTransfer2.move(127);
+      motorHood.move(127);
     } else if(master.get_digital(DIGITAL_L2)) {
       motorTransfer1.move(-127);
       motorTransfer2.move(-127);
     } else if(master.get_digital(DIGITAL_R2)) {
       motorIntake1.move(127);
-      motorIntake2.move(-127);
+      //motorIntake2.move(-127);
     } else {
       motorIntake1.move(0);
-      motorIntake2.move(0);
+      //motorIntake2.move(0);
       motorTransfer1.move(0);
       motorTransfer2.move(0);
+      motorHood.move(0);
     }
 
     if(master.get_digital_new_press(DIGITAL_R1)) {
