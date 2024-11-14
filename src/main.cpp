@@ -1,4 +1,5 @@
 #include "main.h"
+#include "EZ-Template/util.hpp"
 #include "pros/adi.hpp"
 #include "encthing.cpp"
 #include "pros/misc.h"
@@ -198,10 +199,10 @@ void opcontrol() {
       motorHood.move(0);
     }
 
-    if(master.get_digital_new_press(DIGITAL_X)) {
-      pros::Task task([=] {
-        climb.set_value(climb.get_value());
-      });
+    if(master.get_digital_new_press(DIGITAL_B)) {
+      climb.set_value(false);
+    } else if(master.get_digital_new_press(DIGITAL_X)) {
+      climb.set_value(true);
     }
 
     if(master.get_digital_new_press(DIGITAL_R1)) {
