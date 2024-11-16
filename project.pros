@@ -334,7 +334,7 @@
     },
     "upload_options": {
       "description": "code",
-      "slot": 2
+      "slot": 1
     }
   }
 }

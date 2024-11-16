@@ -153,7 +153,7 @@ void opcontrol() {
 
   master.clear_line(0);
   pros::ADIEncoder lol('C', 'd', false);
-  OdomThing odom('A', 'B', false);
+  //OdomThing odom('A', 'B', false);
   //pros::ADIEncoder* enc = &odom;
 
   while (true) {
@@ -188,6 +188,7 @@ void opcontrol() {
     } else if(master.get_digital(DIGITAL_L2)) {
       motorTransfer1.move(-127);
       motorTransfer2.move(-127);
+      motorHood.move(-127);
     } else if(master.get_digital(DIGITAL_R2)) {
       motorIntake1.move(127);
       //motorIntake2.move(-127);
@@ -206,17 +207,17 @@ void opcontrol() {
     }
 
     if(master.get_digital_new_press(DIGITAL_R1)) {
-      if(pneumatic2.get_value() == false) {
+      if(pneumatic2.get_value() == true) {
         pros::Task task{[=] {
-          pneumatic2.set_value(true);
+          pneumatic2.set_value(false);
           pros::delay(500);
-          pneumatic1.set_value(true);
+          pneumatic1.set_value(false);
         }};
       } else {
         pros::Task task{[=] {
-          pneumatic1.set_value(false);
+          pneumatic1.set_value(true);
           pros::delay(500);
-          pneumatic2.set_value(false);
+          pneumatic2.set_value(true);
         }};
       }
     }
