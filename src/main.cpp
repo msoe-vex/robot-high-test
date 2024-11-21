@@ -13,11 +13,11 @@
 ez::Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is used as the sensor
-  {-4, -12, -13}
+  {-9, -12, -13}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is used as the sensor
-  ,{14, 15, 9}
+  ,{14, 15, 16}
 
   // IMU Port
   ,16
