@@ -9,6 +9,7 @@ extern pros::ADIPort PneumaticName;
 extern pros::ADIPort pneumatic1;
 extern pros::ADIPort pneumatic2;
 extern pros::ADIPort climb;
+extern pros::ADIPort intakeDeploy;
 
 extern pros::Motor motorIntake1;
 //extern pros::Motor motorIntake2;

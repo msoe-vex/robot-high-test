@@ -153,6 +153,7 @@ void opcontrol() {
 
   master.clear_line(0);
   pros::ADIEncoder lol('C', 'd', false);
+  intakeDeploy.set_value(false);
   //OdomThing odom('A', 'B', false);
   //pros::ADIEncoder* enc = &odom;
 
@@ -221,6 +222,15 @@ void opcontrol() {
         }};
       }
     }
+
+    if(master.get_digital_new_press(DIGITAL_UP)) {
+      intakeDeploy.set_value(true);
+    }
+
+    if(master.get_digital_new_press(DIGITAL_DOWN)) {
+      intakeDeploy.set_value(false);
+    }
+
     
     //std::cout << lol.get_value() << std::endl;
     //OdomThing odom('A', 'B', false);
