@@ -147,6 +147,11 @@ void getIMU() {
 }
 */
 
+void swap(void* valueSwap) {
+  pros::delay(1000);
+  *(bool*)valueSwap = true;
+}
+
 void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
@@ -156,7 +161,8 @@ void opcontrol() {
   intakeDeploy.set_value(false);
   //OdomThing odom('A', 'B', false);
   //pros::ADIEncoder* enc = &odom;
-
+  bool lastLimitState = true;
+  bool driveState = true;
   while (true) {
     // (0,0, "imu:%.2f",chassis.drive_imu_get());
     
@@ -180,12 +186,24 @@ void opcontrol() {
     //   chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
     // } 
 
-    if(master.get_digital(DIGITAL_L1)) {
+    if(limitSwitch.get_new_press()) {
+      driveState = false;
+      pros::Task my_task (swap, (void*)&driveState, TASK_PRIORITY_DEFAULT,
+                TASK_STACK_DEPTH_DEFAULT, "My Task");
+    }
+
+
+
+    if(master.get_digital(DIGITAL_L1)) {   
       motorIntake1.move(-127);
       //motorIntake2.move(127);
       motorTransfer1.move(127);
       motorTransfer2.move(127);
-      motorHood.move(127);
+      if(driveState) {
+        motorHood.move(127);
+      } else {
+        motorHood.move(-127);
+      }
     } else if(master.get_digital(DIGITAL_L2)) {
       motorTransfer1.move(-127);
       motorTransfer2.move(-127);

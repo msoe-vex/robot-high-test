@@ -18,6 +18,8 @@ pros::ADIPort pneumatic2('b', pros::E_ADI_DIGITAL_OUT);
 pros::ADIPort climb('e', pros::E_ADI_DIGITAL_OUT);
 pros::ADIPort intakeDeploy('f', pros::E_ADI_DIGITAL_OUT);
 
+pros::ADIDigitalIn limitSwitch({{4, 'e'}});
+
 pros::Motor motorTransfer1(17);
 pros::Motor motorTransfer2(18);
 pros::Motor motorIntake1(19);

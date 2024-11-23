@@ -11,6 +11,8 @@ extern pros::ADIPort pneumatic2;
 extern pros::ADIPort climb;
 extern pros::ADIPort intakeDeploy;
 
+extern pros::ADIDigitalIn limitSwitch;
+
 extern pros::Motor motorIntake1;
 //extern pros::Motor motorIntake2;
 extern pros::Motor motorTransfer1;
